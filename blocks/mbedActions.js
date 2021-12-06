@@ -672,14 +672,14 @@ Blockly.Blocks['mbedActions_pin_set_pull'] = {
         this.setWarningText(Blockly.Msg.PIN_SET_PULL_BLOCK_WARNING);
     },
     onchange : function(event) {
-        if (!this.workspace || this.workspace.isFlyout || !["ui", "create"].includes(event.type)) {
+        if (!this.workspace || this.workspace.isFlyout || (event.type !== Blockly.Events.UI && event.type !== Blockly.Events.CREATE)) {
             return;
         }
         if (!this.warning) {
             this.setWarningText(Blockly.Msg.PIN_SET_PULL_BLOCK_WARNING);
             return;
         }
-        if (this.warning && event.type == "create") {
+        if (event.type === Blockly.Events.CREATE) {
             this.warning.setVisible(true);
         }
     }
