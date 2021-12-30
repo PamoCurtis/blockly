@@ -675,7 +675,7 @@ Blockly.Blocks['robSensors_generic_all'] = {
             }
             if (this.sensors[index].portsHidden) {
                 hidePortIfOnlyInbuilt(thisBlock);
-            } else if (this.hide){
+            } else if (this.hide) {
                 delete this.hide;
             }
             if (this.sensors[index].standardPort) {
