@@ -489,6 +489,7 @@ Blockly.WorkspaceSvg.prototype.paste = function(xmlBlock) {
   // Move the duplicate to original position.
   var blockX = parseInt(xmlBlock.getAttribute('x'), 10);
   var blockY = parseInt(xmlBlock.getAttribute('y'), 10);
+  var descendants = block.getDescendants();
   if (!isNaN(blockX) && !isNaN(blockY)) {
     if (this.RTL) {
       blockX = -blockX;
@@ -532,6 +533,31 @@ Blockly.WorkspaceSvg.prototype.paste = function(xmlBlock) {
   Blockly.Events.enable();
   if (Blockly.Events.isEnabled() && !block.isShadow()) {
     Blockly.Events.fire(new Blockly.Events.Create(block));
+  }
+  var allVariableDeclarations = Blockly.Variables.allGlobalVariables()
+      .concat(Blockly.Variables.allLocalVariables())
+      .concat(Blockly.Variables.allLoopVariables());
+  for (var i = 0; i < descendants.length; i++) {
+    if (descendants[i].type == 'variables_set' || descendants[i].type == 'variables_get') {
+      var variableName = descendants[i].getFieldValue('VAR');
+      var variableType = descendants[i].dataType_;
+      var variableHasDeclaration = false;
+      for (var j = 0; j < allVariableDeclarations.length; j++) {
+        if (variableName == allVariableDeclarations[j]) {
+          var declarationType = Blockly.Variables.getType(allVariableDeclarations[j]);
+          variableHasDeclaration = true;
+          if (declarationType != variableType) {
+            descendants[i].setType(variableName, declarationType);
+          }
+          break;
+        }
+      }
+      if (!variableHasDeclaration) {
+        descendants[i].dispose(true);
+        descendants = block.getDescendants();
+        i -= 1;
+      }
+    }
   }
   block.select();
 };
