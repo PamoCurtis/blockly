@@ -416,6 +416,13 @@ confBlocks.ultrasonic.spike = {
     sensor: true
 };
 
+confBlocks.ultrasonicc = {};
+confBlocks.ultrasonicc.calliope = {
+    title: 'ULTRASONIC',
+    sensor: true,
+    statement: true
+};
+
 confBlocks.light = {};
 confBlocks.light.arduino = {
     title: 'LIGHT',
@@ -619,15 +626,6 @@ confBlocks.potentiometer.sensebox = {
 };
 
 confBlocks.infrared = {};
-confBlocks.infrared.wedo = {
-    title: 'INFRARED',
-    bricks: true,
-    ports: [
-        ['CONNECTOR', 'CONNECTOR']
-    ],
-    pins: Blockly.Blocks.robConfigDefinitions['pins_wedo'],
-    sensor: true
-};
 confBlocks.infrared.arduino = {
     title: 'INFRARED',
     ports: [
@@ -642,6 +640,18 @@ confBlocks.infrared.arduino = {
         ['GND', 'GND'],
         ['VCC', '5V']
     ]
+};
+confBlocks.infrared.calliope = {
+    title: 'INFRARED',
+    sensor: true,
+    ports: [['BRICK_PORT', 'PORT']],
+    pins: function(a) {
+        return [
+            [Blockly.Msg.LEFT, 'INFRARED_L'],
+            [Blockly.Msg.RIGHT, 'INFRARED_R']
+        ];
+    },
+    statement: true
 };
 confBlocks.infrared.robotino = {
     title: 'INFRARED',
@@ -667,6 +677,16 @@ confBlocks.line.joycar = {
         ['BRICK_PORT', 'PORT']
     ],
     statement: true
+};
+
+confBlocks.infrared.wedo = {
+    title: 'INFRARED',
+    bricks: true,
+    ports: [
+        ['CONNECTOR', 'CONNECTOR']
+    ],
+    pins: Blockly.Blocks.robConfigDefinitions['pins_wedo'],
+    sensor: true
 };
 
 confBlocks.camera = {};
@@ -1161,6 +1181,18 @@ confBlocks.led.arduino = {
         ['GND', 'GND']
     ]
 };
+confBlocks.led.calliope = {
+    title: 'LED',
+    sensor: false,
+    ports: [['BRICK_PORT', 'PORT']],
+    pins: function(a) {
+        return [
+            [Blockly.Msg.LEFT, 'LED_L'],
+            [Blockly.Msg.RIGHT, 'LED_R']
+        ];
+    },
+    statement: true
+};
 confBlocks.led.festobionic = {
     title: 'LED',
     ports: [
@@ -1195,11 +1227,7 @@ confBlocks.led.sensebox = {
         ['GND', 'GND']
     ]
 };
-confBlocks.led.wedo = {
-    title: 'LED',
-    bricks: true,
-    action: true
-};
+
 confBlocks.led.raspberrypi = {
     title: 'LED',
     ports: [
@@ -1373,12 +1401,29 @@ confBlocks.rgbled.festobionicflower = {
 
 confBlocks.rgbled.calliope = {
     title: 'RGBLED',
+    sensor: false,
+    ports: [['BRICK_PORT', 'PORT']],
+    pins: function(a) {
+        return [
+            [Blockly.Msg.FRONT_LEFT, 'RGBLED_LF'],
+            [Blockly.Msg.FRONT_RIGHT, 'RGBLED_RF'],
+            [Blockly.Msg.BACK_LEFT, 'RGBLED_LR'],
+            [Blockly.Msg.BACK_RIGHT, 'RGBLED_RR']
+        ];
+    },
+    statement: true
+};
+
+confBlocks.rgbledh = {};
+confBlocks.rgbledh.calliope = {
+    title: 'RGBLEDH',
     ports: [
         ['pin', 'PIN1']
     ],
     sensor: false,
     inbuilt: true
 };
+
 confBlocks.rgbled.sensebox = {
     title: 'RGBLED',
     ports: [
@@ -1431,6 +1476,15 @@ confBlocks.rgbled.joycar = {
         ];
     }
 };
+
+confBlocks.rgbled.wedo = {
+    title: 'RGBLED',
+    sensor: false,
+    ports: [
+        ['pin', 'PIN1']
+    ]
+};
+
 confBlocks.rgbled.spike = confBlocks.rgbled.calliope;
 
 confBlocks.stepmotor = {};
@@ -1489,6 +1543,21 @@ confBlocks.servo.calliope = {
     },
     sensor: false
 };
+
+confBlocks.servoc = {};
+confBlocks.servoc.calliope = {
+    title: 'SERVO',
+    sensor: false,
+    ports: [['BRICK_PORT', 'PORT']],
+    pins: function(a) {
+        return [
+            [Blockly.Msg.LEFT, 'SERVO_S1'],
+            [Blockly.Msg.RIGHT, 'SERVO_S2']
+        ];
+    },
+    statement: true
+};
+
 confBlocks.servo.raspberrypi = {
     title: 'SERVO',
     inputs: [
@@ -1651,6 +1720,20 @@ confBlocks.motor.joycar = {
         ];
     },
     sensor: false
+};
+
+confBlocks.motorc = {};
+confBlocks.motorc.calliope = {
+    title: 'MOTOR',
+    sensor: false,
+    ports: [['BRICK_PORT', 'PORT']],
+    pins: function(a) {
+        return [
+            [Blockly.Msg.LEFT, 'MOTOR_L'],
+            [Blockly.Msg.RIGHT, 'MOTOR_R']
+        ];
+    },
+    statement: true
 };
 
 confBlocks.encoder = {};
@@ -2049,7 +2132,7 @@ function initConfBlocks() {
             Blockly.Blocks['robConf_' + confBlock] = {
                 confBlock: confBlock,
                 init: function() {
-                    Blockly.Blocks['robConf_generic'].init.call(this, confBlocks[this.confBlock][this.workspace.device]);
+                    Blockly.Blocks['robConf_generic'].init.call(this, confBlocks[this.confBlock][this.workspace.device], this.confBlock);
                 }
             };
         }

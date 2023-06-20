@@ -58,6 +58,7 @@
 <script src="../blocks/robConfig.js"></script>
 <script src="../blocks/robConfigDefinitions.js"></script>
 <script src="../blocks/robActions.js"></script>
+    <script src="../blocks/actions.js"></script>
 <script src="../blocks/robBrick.js"></script>
 <link rel="stylesheet" type="text/css" href="typicons.css">
 </link>
@@ -231,7 +232,14 @@ h1 {
             </block>
         </value>
         </block>
-        <block type="robActions_brickLight_on"></block>
+        <block type="actions_rgbLed_on">
+            <value name="COLOUR">
+                <block type="robColour_picker">
+                    <field name="COLOUR">#cc0000</field>
+                </block>
+            </value>
+        </block>
+        <block type="actions_rgbLed_off"></block>
         <block type="robActions_sendData"></block>
     </category>
     <category name="TOOLBOX_SENSOR" svg="true">

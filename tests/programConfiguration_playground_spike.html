@@ -97,7 +97,85 @@
         };
         var left = Blockly.Msg.LEFT;
         var right = Blockly.Msg.RIGHT;
-        var defaultConfXML = '<block_set xmlns="http://de.fhg.iais.roberta.blockly" robottype="spike" xmlversion="" description="" tags=""><instance x="80" y="-37"><block type="robConf_key" id="](;J)ShyJ;~HcwPOpoZQ" intask="true" deletable="false"><field name="NAME">links</field><field name="PIN1">LEFT</field></block></instance><instance x="443" y="-40"><block type="robConf_key" id="aCW;Mk]1|#;zP8{)Ax*;" intask="true" deletable="false"><field name="NAME">rechts</field><field name="PIN1">RIGHT</field></block></instance><instance x="236" y="31"><block type="robConf_differentialdrive" id="AM=n{?7R#nO#1~?a3j~u" intask="true"></block></instance><instance x="83" y="50"><block type="robConf_motor" id="`CW3f_/xL#;Z!)*[EZz@" intask="true"></block></instance><instance x="444" y="38"><block type="robConf_motor" id="S(Xm/UHHH;N[4Km1TML0" intask="true"></block></instance><instance x="83" y="143"><block type="robConf_colour" id="e^*dGK},@+!mbUm6.p:-" intask="true" ></block></instance><instance x="442" y="125"><block type="robConf_ultrasonic" id="Z5a?AUX(BKNfDVeH/-Dz" intask="true" ></block></instance><instance x="280" y="185"><block type="robConf_buzzer" id="W3:Yn.C(/356snBah3a:" intask="true" deletable="false"></block></instance><instance x="445" y="221"><block type="robConf_touch" id="BK+JQtM]!+,YDt)K-{]*" intask="true" ></block></instance><instance x="445" y="300"><block type="robConf_display" id="tt" intask="true" deletable="false"></block></instance><instance x="445" y="400"><block type="robConf_rgbled" id="tt" intask="true" deletable="false"></block></instance><instance x="445" y="460"><block type="robConf_gyro" id="tt" intask="true" deletable="false"></block></instance></block_set>';
+        var defaultConfXML = '<block_set xmlns="http://de.fhg.iais.roberta.blockly" robottype="spike" xmlversion="" description="" tags="">\n' +
+            '    <instance x="70" y="103">\n' +
+            '        <block type="robConf_differentialdrive" id="AM=n{?7R#nO#1~?a3j~u" intask="true">\n' +
+            '            <field name="NAME">_D</field>\n' +
+            '            <field name="BRICK_WHEEL_DIAMETER">5.6</field>\n' +
+            '            <field name="BRICK_TRACK_WIDTH">11.5</field>\n' +
+            '            <field name="MOTOR_L">A</field>\n' +
+            '            <field name="MOTOR_R">B</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="289" y="183">\n' +
+            '        <block type="robConf_robot" id="robot" intask="true">\n' +
+            '            <field name="ROBOT">undefined</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="560" y="216">\n' +
+            '        <block type="robConf_gyro" id="}O,nU9g2cL:S*jCf~_Z*" intask="true">\n' +
+            '            <field name="NAME">_K</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="143" y="251">\n' +
+            '        <block type="robConf_motor" id="`CW3f_/xL#;Z!)*[EZz@" intask="true">\n' +
+            '            <field name="NAME">MA</field>\n' +
+            '            <field name="PORT">A</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="560" y="252">\n' +
+            '        <block type="robConf_motor" id="S(Xm/UHHH;N[4Km1TML0" intask="true">\n' +
+            '            <field name="NAME">MB</field>\n' +
+            '            <field name="PORT">B</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="119" y="314">\n' +
+            '        <block type="robConf_colour" id="e^*dGK},@+!mbUm6.p:-" intask="true">\n' +
+            '            <field name="NAME">F</field>\n' +
+            '            <field name="PORT">C</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="560" y="315">\n' +
+            '        <block type="robConf_ultrasonic" id="Z5a?AUX(BKNfDVeH/-Dz" intask="true">\n' +
+            '            <field name="NAME">U</field>\n' +
+            '            <field name="PORT">D</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="144" y="373">\n' +
+            '        <block type="robConf_display" id="tt" intask="true" deletable="false">\n' +
+            '            <field name="NAME">_B</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="560" y="377">\n' +
+            '        <block type="robConf_touch" id="BK+JQtM]!+,YDt)K-{]*" intask="true">\n' +
+            '            <field name="NAME">B</field>\n' +
+            '            <field name="PORT">F</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="136" y="440">\n' +
+            '        <block type="robConf_key" id="](;J)ShyJ;~HcwPOpoZQ" intask="true" deletable="false">\n' +
+            '            <field name="NAME">links</field>\n' +
+            '            <field name="PIN1">LEFT</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="560" y="438">\n' +
+            '        <block type="robConf_key" id="aCW;Mk]1|#;zP8{)Ax*;" intask="true" deletable="false">\n' +
+            '            <field name="NAME">rechts</field>\n' +
+            '            <field name="PIN1">RIGHT</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="560" y="495">\n' +
+            '        <block type="robConf_rgbled" id="C8/{!k%9L]YDK@vW/y,h" intask="true" deletable="false">\n' +
+            '            <field name="NAME">_R</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '    <instance x="153" y="522">\n' +
+            '        <block type="robConf_buzzer" id="W3:Yn.C(/356snBah3a:" intask="true" deletable="false">\n' +
+            '            <field name="NAME">_S</field>\n' +
+            '        </block>\n' +
+            '    </instance>\n' +
+            '</block_set>';
+
         function start() {
             var defaultProgramXML = '<block_set xmlns=\'http://www.w3.org/1999/xhtml\'><instance x=\'100\' y=\'50\'><block type=\'robControls_start\'><field name=\'DEBUG\'>FALSE</field></block></instance></block_set>';
             var toolbox = {};
@@ -333,24 +411,24 @@
             </block>
         </category>
         <category name='TOOLBOX_DISPLAY' svg='true'>
-            <block type="actions_display_text">
-                <value name="TEXT">
-                    <block type="text">
-                        <field name="TEXT">Hallo</field>
+            <block type='actions_display_text'>
+                <value name='TEXT'>
+                    <block type='text'>
+                        <field name='TEXT'>Hallo</field>
                     </block>
                 </value>
             </block>
-            <block type="actions_display_image">
-                <value name="VALUE">
-                    <block type="image_image"/>
+            <block type='actions_display_image'>
+                <value name='VALUE'>
+                    <block type='image_image' />
                 </value>
             </block>
-            <block type="actions_display_image">
-                <value name="VALUE">
-                    <block type="image_get_image"/>
+            <block type='actions_display_image'>
+                <value name='VALUE'>
+                    <block type='image_get_image' />
                 </value>
             </block>
-            <block type="actions_display_clear">
+            <block type='actions_display_clear'>
             </block>
         </category>
         <category name='TOOLBOX_SOUND' svg='true'>
@@ -379,11 +457,17 @@
         <category name='TOOLBOX_LIGHT' svg='true'>
             <block type='actions_brickLed_on'>
                 <value name='COLOUR'>
+                    <block type='colour_picker_spike'>
+                    </block>
+                </value>
+            </block>
+            <block type='actions_rgbLed_hidden_on'>
+                <value name='COLOUR'>
                     <block type='colour_picker_spike' >
                     </block>
                 </value>
             </block>
-            <block type='actions_brickLed_off'></block>
+            <block type='actions_rgbLed_hidden_off'></block>
         </category>
     </category>
     <category name='TOOLBOX_SENSOR' svg='true'>

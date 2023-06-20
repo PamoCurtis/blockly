@@ -543,67 +543,6 @@ Blockly.Blocks['mbedActions_play_getVolume'] = {
     }
 };
 
-Blockly.Blocks['mbedActions_leds_on'] = {
-    /**
-     * Turn bricklight on.
-     *
-     * @constructs mbedActions_brickLight_on
-     * @this.Blockly.Block
-     * @param {String/dropdown}
-     *            SWITCH_COLOR - Green, Orange or Red
-     * @param {Boolean/dropdown}
-     *            SWITCH_BLINK - True or False
-     * @returns immediately
-     * @memberof Block
-     */
-    init: function() {
-
-        this.setColour(Blockly.CAT_ACTION_RGB);
-        this.dropDownPorts = getConfigPorts('rgbled');
-        this.dependConfig = {
-            'type': 'rgbled',
-            'dropDown': this.dropDownPorts
-        };
-        this.appendValueInput('COLOR').appendField(Blockly.Msg.LED_ON).appendField(this.dropDownPorts, 'ACTORPORT').appendField(Blockly.Msg.BRICKLIGHT_COLOR).setCheck('Colour');
-        hidePortIfOnlyInbuilt(this);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.LED_ON_TOOLTIP);
-        var thisBlock = this;
-        this.setTooltip(function() {
-            if (parseInt(thisBlock.getFieldValue('ACTORPORT')) > 0) {
-                return Blockly.Msg.LED_ON_TOOLTIP_CB;
-            } else {
-                return Blockly.Msg.LED_ON_TOOLTIP;
-            }
-        });
-    }
-};
-
-Blockly.Blocks['mbedActions_leds_off'] = {
-    /**
-     * Turn bricklight off.
-     *
-     * @constructs mbedActions_brickLight_off
-     * @this.Blockly.Block
-     * @returns immediately
-     * @memberof Block
-     */
-    init: function() {
-        this.setColour(Blockly.CAT_ACTION_RGB);
-        this.dropDownPorts = getConfigPorts('rgbled');
-        this.dependConfig = {
-            'type': 'rgbled',
-            'dropDown': this.dropDownPorts
-        };
-        this.appendDummyInput().appendField(Blockly.Msg.LED_OFF).appendField(this.dropDownPorts, 'ACTORPORT');
-        hidePortIfOnlyInbuilt(this);
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.LED_OFF_TOOLTIP);
-    }
-};
-
 // adapted from previous mbedActions_write_to_pin and robActions_write_pin from robActions.js
 Blockly.Blocks['mbedActions_write_to_pin'] = {
     init: function() {

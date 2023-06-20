@@ -16,16 +16,16 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks['robBrick_EV3-Brick'] = {
     /**
      * EV3 brick.
-     * 
+     *
      * @constructs robBrick_EV3_brick
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour('#BBBBBB');
         this.setInputsInline(false);
-        var wheelDiameter = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator)
-        var trackWidth = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator)
+        var wheelDiameter = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator);
+        var trackWidth = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator);
         this.appendDummyInput().appendField(new Blockly.FieldLabel(this.workspace.device.toUpperCase(), 'brick_label'));
         this.appendDummyInput().appendField(Blockly.Msg.BRICK_WHEEL_DIAMETER).appendField(wheelDiameter, 'WHEEL_DIAMETER').appendField('cm');
         this.appendDummyInput().appendField(Blockly.Msg.BRICK_TRACK_WIDTH).appendField(trackWidth, 'TRACK_WIDTH').appendField('cm');
@@ -49,13 +49,13 @@ Blockly.Blocks['robBrick_EV3-Brick'] = {
 Blockly.Blocks['robBrick_Arduino-Brick'] = {
     /**
      * Arduino board.
-     * 
+     *
      * @constructs robBrick_Arduino_board
      * @memberof Block
      */
 
-    init : function() {
-        var boards = [ [ 'Uno', 'Uno' ], [ 'Mega', 'Mega' ], [ 'Nano', 'Nano' ] ];
+    init: function() {
+        var boards = [['Uno', 'Uno'], ['Mega', 'Mega'], ['Nano', 'Nano']];
         var board = new Blockly.FieldDropdown(boards);
         this.setColour('#BBBBBB');
         this.setInputsInline(false);
@@ -65,7 +65,7 @@ Blockly.Blocks['robBrick_Arduino-Brick'] = {
     }
 };
 Blockly.Blocks['robBrick_WeDo-Brick'] = {
-    init : function() {
+    init: function() {
         var name = Blockly.Variables.findLegalName(Blockly.Msg.BRICKNAME_WEDO.charAt(0).toUpperCase(), this);
         this.nameOld = name;
         var nameField = new Blockly.FieldTextInput(name, this.validateName);
@@ -76,7 +76,7 @@ Blockly.Blocks['robBrick_WeDo-Brick'] = {
         this.appendDummyInput().setAlign(Blockly.ALIGN_RIGHT).appendField(nameField, 'VAR');
         //this.setDeletable(false);
     },
-    validateName : function(name) {
+    validateName: function(name) {
         var block = this.sourceBlock_;
         name = name.replace(/[\s\xa0]+/g, '').replace(/^ | $/g, '');
         // no name set -> invalid
@@ -90,42 +90,42 @@ Blockly.Blocks['robBrick_WeDo-Brick'] = {
         block.nameOld = name;
         return name;
     },
-    getVarDecl : function() {
-        return [ this.getFieldValue('VAR') ];
+    getVarDecl: function() {
+        return [this.getFieldValue('VAR')];
     },
-    getVars : function() {
-        return [ this.getFieldValue('VAR') ];
-    },
+    getVars: function() {
+        return [this.getFieldValue('VAR')];
+    }
 };
 
 Blockly.Blocks['robBrick_senseBox-Brick'] = {
     /**
      * SenseBox brick.
-     * 
+     *
      * @constructs robBrick_senseBox-Brick'
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour('#BBBBBB');
         this.setInputsInline(false);
         this.appendDummyInput().appendField(new Blockly.FieldLabel('senseBox', 'brick_label'));
-        this.appendDummyInput().appendField(Blockly.Msg.BOX_ID).appendField(new Blockly.FieldTextInput("", this.idValidator), 'BOX_ID').setAlign(Blockly.ALIGN_RIGHT);
-        this.appendDummyInput('ADD1').appendField(Blockly.Msg.BRICK_PHENOMENON).appendField(new Blockly.FieldTextInput(this.findLegalName_("ID1"),
-                this.nameValidator), 'NAME1').appendField(Blockly.Msg.ID).appendField(new Blockly.FieldTextInput("", this.idValidator), 'ID1').setAlign(Blockly.ALIGN_RIGHT);
+        this.appendDummyInput().appendField(Blockly.Msg.BOX_ID).appendField(new Blockly.FieldTextInput('', this.idValidator), 'BOX_ID').setAlign(Blockly.ALIGN_RIGHT);
+        this.appendDummyInput('ADD1').appendField(Blockly.Msg.BRICK_PHENOMENON).appendField(new Blockly.FieldTextInput(this.findLegalName_('ID1'),
+            this.nameValidator), 'NAME1').appendField(Blockly.Msg.ID).appendField(new Blockly.FieldTextInput('', this.idValidator), 'ID1').setAlign(Blockly.ALIGN_RIGHT);
         this.idCount_ = 1;
         this.setMutatorPlus(new Blockly.MutatorPlus(this));
         this.setTooltip(Blockly.Msg.SENSEBOXBRICK_TOOLTIP);
         this.setDeletable(false);
     },
-    getPhenomena : function() {
+    getPhenomena: function() {
         var phenomena = [];
         for (var x = 1; x <= this.idCount_; x++) {
             phenomena.push(this.getField('NAME' + x).getValue());
         }
         return phenomena;
     },
-    nameValidator : function(name) {
+    nameValidator: function(name) {
         var block = this.sourceBlock_;
         name = name.replace(/[\s\xa0]+/g, '').replace(/^ | $/g, '');
         // no name set -> invalid
@@ -138,37 +138,37 @@ Blockly.Blocks['robBrick_senseBox-Brick'] = {
         block.updateSendData_(0);
         return name;
     },
-    idValidator : function(id) {
+    idValidator: function(id) {
         if (id === '')
             return id;
         if (!id.match(/^[a-fA-F0-9]{24}$/))
             return null;
         return id;
     },
-    mutationToDom : function() {
+    mutationToDom: function() {
         var container = document.createElement('mutation');
         container.setAttribute('items', this.idCount_);
         return container;
     },
-    domToMutation : function(xmlElement) {
+    domToMutation: function(xmlElement) {
         this.idCount_ = parseInt(xmlElement.getAttribute('items'), 10);
         for (var x = 2; x <= this.idCount_; x++) {
-            this.appendDummyInput('ADD' + x).appendField(Blockly.Msg.BRICK_PHENOMENON).appendField(new Blockly.FieldTextInput("", this.nameValidator), 'NAME'
-                    + x).appendField(Blockly.Msg.ID).appendField(new Blockly.FieldTextInput("", this.idValidator), 'ID' + x).setAlign(Blockly.ALIGN_RIGHT);
+            this.appendDummyInput('ADD' + x).appendField(Blockly.Msg.BRICK_PHENOMENON).appendField(new Blockly.FieldTextInput('', this.nameValidator), 'NAME'
+                + x).appendField(Blockly.Msg.ID).appendField(new Blockly.FieldTextInput('', this.idValidator), 'ID' + x).setAlign(Blockly.ALIGN_RIGHT);
         }
         if (this.idCount_ >= 2) {
             this.setMutatorMinus(new Blockly.MutatorMinus(this));
         }
     },
-    updateShape_ : function(num) {
+    updateShape_: function(num) {
         if (num == 1) {
             if (this.idCount_ == 1) {
                 this.setMutatorMinus(new Blockly.MutatorMinus(this));
             }
             this.idCount_++;
             this.appendDummyInput('ADD' + this.idCount_).appendField(Blockly.Msg.BRICK_PHENOMENON).appendField(new Blockly.FieldTextInput(
-                    this.findLegalName_("ID" + this.idCount_), this.nameValidator), 'NAME' + this.idCount_).appendField(Blockly.Msg.ID).appendField(new Blockly.FieldTextInput(
-                    "", this.idValidator), 'ID' + this.idCount_).setAlign(Blockly.ALIGN_RIGHT);
+                this.findLegalName_('ID' + this.idCount_), this.nameValidator), 'NAME' + this.idCount_).appendField(Blockly.Msg.ID).appendField(new Blockly.FieldTextInput(
+                '', this.idValidator), 'ID' + this.idCount_).setAlign(Blockly.ALIGN_RIGHT);
         } else if (num == -1) {
             this.removeInput('ADD' + this.idCount_);
             this.idCount_--;
@@ -180,10 +180,10 @@ Blockly.Blocks['robBrick_senseBox-Brick'] = {
         this.render();
         this.updateSendData_(num);
     },
-    updateSendData_ : function(num) {
-        var container = Blockly.Workspace.getByContainer("blocklyDiv");
+    updateSendData_: function(num) {
+        var container = Blockly.Workspace.getByContainer('blocklyDiv');
         if (container) {
-            var blocks = Blockly.Workspace.getByContainer("blocklyDiv").getAllBlocks();
+            var blocks = Blockly.Workspace.getByContainer('blocklyDiv').getAllBlocks();
             for (var x = 0; x < blocks.length; x++) {
                 var func = blocks[x].setPhenomena;
                 if (func) {
@@ -192,7 +192,7 @@ Blockly.Blocks['robBrick_senseBox-Brick'] = {
             }
         }
     },
-    findLegalName_ : function(name) {
+    findLegalName_: function(name) {
         var that = this;
         var isLegalName = function(name) {
             for (var x = 0; x <= that.idCount_; x++) {
@@ -201,7 +201,7 @@ Blockly.Blocks['robBrick_senseBox-Brick'] = {
                 }
             }
             return true;
-        }
+        };
         while (!isLegalName(name)) {
             // Collision with another variable.
             var r = name.match(/^(.*?)(\d+)$/);
@@ -213,9 +213,9 @@ Blockly.Blocks['robBrick_senseBox-Brick'] = {
         }
         return name;
     },
-    onchange : function(what) {
+    onchange: function(what) {
         if (what.name) {
-            if (!what.name.startsWith("NAME") || (what.oldValue == what.newValue)) {
+            if (!what.name.startsWith('NAME') || (what.oldValue == what.newValue)) {
                 return;
             }
         } else {
@@ -228,16 +228,16 @@ Blockly.Blocks['robBrick_senseBox-Brick'] = {
 Blockly.Blocks['robBrick_mBot-Brick'] = {
     /**
      * Mbot brick.
-     * 
+     *
      * @constructs robBrick_mBot-Brick'
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour('#BBBBBB');
         this.setInputsInline(false);
-        var wheelDiameter = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator)
-        var trackWidth = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator)
+        var wheelDiameter = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator);
+        var trackWidth = new Blockly.FieldTextInput('0', Blockly.FieldTextInput.nonnegativeNumberValidator);
         this.appendDummyInput().appendField(new Blockly.FieldLabel(this.workspace.device.toUpperCase(), 'brick_label'));
         this.appendValueInput('PORT_1').appendField('Port 1').setAlign(Blockly.ALIGN_RIGHT);
         this.appendValueInput('PORT_2').appendField('Port 2').setAlign(Blockly.ALIGN_RIGHT);
@@ -257,12 +257,12 @@ Blockly.Blocks['robBrick_mBot-Brick'] = {
 Blockly.Blocks['robBrick_ardu-Brick'] = {
     /**
      * botnroll brick
-     * 
+     *
      * @constructs robBrick_ardu_brick
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour('#BBBBBB');
         this.setInputsInline(false);
         this.appendDummyInput().appendField(new Blockly.FieldLabel('Bot\'n Roll', 'brick_label'));
@@ -270,7 +270,7 @@ Blockly.Blocks['robBrick_ardu-Brick'] = {
         this.appendValueInput('S2').appendField(Blockly.Msg.MOTOR_RIGHT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
         this.appendValueInput('MB').appendField(Blockly.Msg.MOTOR_LEFT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Actor');
         this.appendValueInput('MA').appendField(Blockly.Msg.MOTOR_RIGHT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Actor');
-        this.appendDummyInput().appendField("Line Follower").setAlign(Blockly.ALIGN_CENTER);
+        this.appendDummyInput().appendField('Line Follower').setAlign(Blockly.ALIGN_CENTER);
         this.appendValueInput('S3').appendField('0 - 7').setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
         this.appendValueInput('S4').setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
         this.appendDummyInput().appendField('Rescue Module').setAlign(Blockly.ALIGN_CENTER);
@@ -279,7 +279,7 @@ Blockly.Blocks['robBrick_ardu-Brick'] = {
         this.appendValueInput('S7').appendField(Blockly.Msg.MOTOR_RIGHT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
         this.appendValueInput('S8').appendField(Blockly.Msg.MOTOR_LEFT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
         this.appendValueInput('S9').appendField(Blockly.Msg.MOTOR_RIGHT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
-        this.appendDummyInput().appendField("Extra 'B' Search Rescue").setAlign(Blockly.ALIGN_CENTER);
+        this.appendDummyInput().appendField('Extra \'B\' Search Rescue').setAlign(Blockly.ALIGN_CENTER);
         this.appendValueInput('S10').appendField(Blockly.Msg.SENSOR_SONAR).setAlign(Blockly.ALIGN_RIGHT).setCheck('Sensor');
         this.appendValueInput('MC').appendField(Blockly.Msg.MOTOR_PAN).setAlign(Blockly.ALIGN_RIGHT).setCheck('Actor');
         this.appendValueInput('MD').appendField(Blockly.Msg.MOTOR_TILT).setAlign(Blockly.ALIGN_RIGHT).setCheck('Actor');
@@ -291,18 +291,18 @@ Blockly.Blocks['robBrick_ardu-Brick'] = {
 Blockly.Blocks['robBrick_vorwerk-Brick'] = {
     /**
      * vorwerk brick.
-     * 
+     *
      * @constructs robBrick_vorwerk-Brick
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour('#BBBBBB');
         this.setInputsInline(false);
-        var ipAddress = new Blockly.FieldTextInput('0.0.0.0')
-        var port = new Blockly.FieldTextInput('22', Blockly.FieldTextInput.nonnegativeNumberValidator)
-        var username = new Blockly.FieldTextInput('pi')
-        var password = new Blockly.FieldTextInput('raspberry')
+        var ipAddress = new Blockly.FieldTextInput('0.0.0.0');
+        var port = new Blockly.FieldTextInput('22', Blockly.FieldTextInput.nonnegativeNumberValidator);
+        var username = new Blockly.FieldTextInput('pi');
+        var password = new Blockly.FieldTextInput('raspberry');
         this.appendDummyInput().appendField(new Blockly.FieldLabel('Vorwerk', 'brick_label'));
         this.appendDummyInput().appendField(Blockly.Msg.BRICK_IPADDRESS).appendField(ipAddress, 'IP_ADDRESS');
         this.appendDummyInput().appendField(Blockly.Msg.BRICK_PORT).appendField(port, 'PORT');
@@ -316,12 +316,12 @@ Blockly.Blocks['robBrick_vorwerk-Brick'] = {
 Blockly.Blocks['robBrick_voltage'] = {
     /**
      * Represent a voltage sensor.
-     * 
+     *
      * @constructs robBrick_voltage
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_BATTERY);
         this.setOutput(true, 'Sensor');
@@ -332,12 +332,12 @@ Blockly.Blocks['robBrick_voltage'] = {
 Blockly.Blocks['robBrick_ultrasonic'] = {
     /**
      * Represent an ultrasonic sensor.
-     * 
+     *
      * @constructs robBrick_ultrasonic
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_ULTRASONIC);
         this.setOutput(true, 'Sensor');
@@ -348,12 +348,12 @@ Blockly.Blocks['robBrick_ultrasonic'] = {
 Blockly.Blocks['robBrick_temperature'] = {
     /**
      * Represent an temperature sensor.
-     * 
+     *
      * @constructs robBrick_temperature
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_TEMPERATURE);
         this.setOutput(true, 'Sensor');
@@ -364,15 +364,15 @@ Blockly.Blocks['robBrick_temperature'] = {
 Blockly.Blocks['robBrick_ultrasonic_ardu'] = {
     /**
      * Represent an ardu ultrasonic sensor.
-     * 
+     *
      * @constructs robBrick_ultrasonic_ardu
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_ULTRASONIC).appendField(Blockly.Msg.MOTOR_LEFT + ' | ' + Blockly.Msg.CENTER + ' | '
-                + Blockly.Msg.MOTOR_RIGHT);
+            + Blockly.Msg.MOTOR_RIGHT);
         this.setOutput(true, 'Sensor');
         this.setTooltip(Blockly.Msg.ULTRASONIC_TOOLTIP);
     }
@@ -381,11 +381,11 @@ Blockly.Blocks['robBrick_ultrasonic_ardu'] = {
 Blockly.Blocks['robBrick_colour'] = {
     /**
      * Represent EV3 colour sensor.
-     * 
+     *
      * @constructs robBrick_colour
      * @memberof Block
      */
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_COLOUR);
         this.setOutput(true, 'Sensor');
@@ -398,11 +398,11 @@ Blockly.Blocks['robBrick_HiTechnic_colour'] = {
      * @deprecated
      * Represent HiTechnic NXT Color Sensor V2.
      * This is legacy code only needed for NXT.
-     * 
+     *
      * @constructs robBrick_HiTechnic_colour
      * @memberof Block
      */
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField('HiTechnic' + Blockly.Msg.SENSOR_COLOUR);
         this.setOutput(true, 'Sensor');
@@ -413,11 +413,11 @@ Blockly.Blocks['robBrick_HiTechnic_colour'] = {
 Blockly.Blocks['robBrick_htcolour'] = {
     /**
      * Represent HiTechnic NXT Color Sensor V2.
-     * 
+     *
      * @constructs robBrick_htcolour
      * @memberof Block
      */
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_HTCOLOUR);
         this.setOutput(true, 'Sensor');
@@ -428,11 +428,11 @@ Blockly.Blocks['robBrick_htcolour'] = {
 Blockly.Blocks['robBrick_light'] = {
     /**
      * Represent a light sensor.
-     * 
+     *
      * @constructs robBrick_light
      * @memberof Block
      */
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.setOutput(true, 'Sensor');
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_LIGHT);
@@ -447,12 +447,12 @@ Blockly.Blocks['robBrick_light'] = {
 Blockly.Blocks['robBrick_infrared'] = {
     /**
      * Represent an infrared sensor.
-     * 
+     *
      * @constructs robBrick_infrared
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_INFRARED);
         this.setOutput(true, 'Sensor');
@@ -463,12 +463,12 @@ Blockly.Blocks['robBrick_infrared'] = {
 Blockly.Blocks['robBrick_irseeker'] = {
     /**
      * Represent an HiTechnic IRSeeker V2 sensor.
-     * 
+     *
      * @constructs robBrick_irseeker
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_IRSEEKER);
         this.setOutput(true, 'Sensor');
@@ -479,7 +479,7 @@ Blockly.Blocks['robBrick_irseeker'] = {
 Blockly.Blocks['robBrick_touch'] = {
     /**
      * Represent a touch sensor.
-     * 
+     *
      * @constructs robBrick_touch
      * @this.Blockly.Block
      * @returns immediately
@@ -487,7 +487,7 @@ Blockly.Blocks['robBrick_touch'] = {
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_TOUCH);
         this.setOutput(true, 'Sensor');
@@ -498,13 +498,13 @@ Blockly.Blocks['robBrick_touch'] = {
 Blockly.Blocks['robBrick_compass'] = {
     /**
      * Represents a compass sensor
-     * 
+     *
      * @constructs robBrick_compass
      * @this.Blockly.Block
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         if (this.workspace.device === 'ev3' || this.workspace.device === 'xNN') {
             this.appendDummyInput().appendField(Blockly.Msg.SENSOR_COMPASS_EV3);
@@ -523,12 +523,12 @@ Blockly.Blocks['robBrick_compass'] = {
 Blockly.Blocks['robBrick_gyro'] = {
     /**
      * Represent a gyro sensor.
-     * 
+     *
      * @constructs robBrick_gyro
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_GYRO);
         this.setOutput(true, 'Sensor');
@@ -539,12 +539,12 @@ Blockly.Blocks['robBrick_gyro'] = {
 Blockly.Blocks['robBrick_sound'] = {
     /**
      * Represent a sound sensor.
-     * 
+     *
      * @constructs robBrick_sound
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_SOUND);
         this.setOutput(true, 'Sensor');
@@ -556,12 +556,12 @@ Blockly.Blocks['robBrick_sound'] = {
 Blockly.Blocks['robBrick_joystick'] = {
     /**
      * Represent a joystick sensor.
-     * 
+     *
      * @constructs robBrick_joystick
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_JOYSTICK);
         this.setOutput(true, 'Sensor');
@@ -572,12 +572,12 @@ Blockly.Blocks['robBrick_joystick'] = {
 Blockly.Blocks['robBrick_accelerometer'] = {
     /**
      * Represent an accelerometer sensor.
-     * 
+     *
      * @constructs robBrick_accelerometer
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.NAO_ACCELEROMETER);
         this.setOutput(true, 'Sensor');
@@ -588,12 +588,12 @@ Blockly.Blocks['robBrick_accelerometer'] = {
 Blockly.Blocks['robBrick_flame'] = {
     /**
      * Represent a flame sensor.
-     * 
+     *
      * @constructs robBrick_flame
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_FLAME);
         this.setOutput(true, 'Sensor');
@@ -604,12 +604,12 @@ Blockly.Blocks['robBrick_flame'] = {
 Blockly.Blocks['robBrick_ambientlight'] = {
     /**
      * Represent an ambientlight sensor.
-     * 
+     *
      * @constructs robBrick_ambientlight
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_AMBIENTLIGHT);
         this.setOutput(true, 'Sensor');
@@ -620,12 +620,12 @@ Blockly.Blocks['robBrick_ambientlight'] = {
 Blockly.Blocks['robBrick_motion'] = {
     /**
      * Represent an motion sensor.
-     * 
+     *
      * @constructs robBrick_motion
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.SENSOR_MOTION);
         this.setOutput(true, 'Sensor');
@@ -636,12 +636,12 @@ Blockly.Blocks['robBrick_motion'] = {
 Blockly.Blocks['robBrick_led'] = {
     /**
      * Represent an external LED.
-     * 
+     *
      * @constructs robBrick_led
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.LED);
         this.setOutput(true, 'Actor');
@@ -652,12 +652,12 @@ Blockly.Blocks['robBrick_led'] = {
 Blockly.Blocks['robBrick_led_matrix'] = {
     /**
      * Represent an external LED matrix.
-     * 
+     *
      * @constructs robBrick_led_matrix
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.LED_MATRIX);
         this.setOutput(true, 'Actor');
@@ -668,17 +668,17 @@ Blockly.Blocks['robBrick_led_matrix'] = {
 Blockly.Blocks['robBrick_motor_big'] = {
     /**
      * Represent a big motor.
-     * 
+     *
      * @constructs robActions_motor_big
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
-        var motorRegulation = new Blockly.FieldDropdown([ [ Blockly.Msg.YES, 'TRUE' ], [ Blockly.Msg.NO, 'FALSE' ] ]);
-        var motorReverse = new Blockly.FieldDropdown([ [ Blockly.Msg.MOTOR_FOREWARD, 'OFF' ], [ Blockly.Msg.MOTOR_BACKWARD, 'ON' ] ]);
-        var motorSide = new Blockly.FieldDropdown([ [ Blockly.Msg.MOTOR_NONE, 'NONE' ], [ Blockly.Msg.MOTOR_RIGHT, 'RIGHT' ],
-                [ Blockly.Msg.MOTOR_LEFT, 'LEFT' ] ]);
+        var motorRegulation = new Blockly.FieldDropdown([[Blockly.Msg.YES, 'TRUE'], [Blockly.Msg.NO, 'FALSE']]);
+        var motorReverse = new Blockly.FieldDropdown([[Blockly.Msg.MOTOR_FOREWARD, 'OFF'], [Blockly.Msg.MOTOR_BACKWARD, 'ON']]);
+        var motorSide = new Blockly.FieldDropdown([[Blockly.Msg.MOTOR_NONE, 'NONE'], [Blockly.Msg.MOTOR_RIGHT, 'RIGHT'],
+            [Blockly.Msg.MOTOR_LEFT, 'LEFT']]);
         this.appendDummyInput().appendField(Blockly.Msg.MOTOR_BIG + ' ' + Blockly.Msg.MOTOR);
         this.appendDummyInput().appendField(Blockly.Msg.MOTOR_REGULATION).appendField(motorRegulation, 'MOTOR_REGULATION').setAlign(Blockly.ALIGN_RIGHT);
         this.appendDummyInput().appendField(Blockly.Msg.MOTOR_ROTATION_REVERSE).appendField(motorReverse, 'MOTOR_REVERSE').setAlign(Blockly.ALIGN_RIGHT);
@@ -691,14 +691,14 @@ Blockly.Blocks['robBrick_motor_big'] = {
 Blockly.Blocks['robBrick_motor_geared'] = {
     /**
      * Represent a geared motor.
-     * 
+     *
      * @constructs robBrick_motor_geared
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
-        var motorSide = new Blockly.FieldDropdown([ [ Blockly.Msg.MOTOR_RIGHT, 'RIGHT' ], [ Blockly.Msg.MOTOR_LEFT, 'LEFT' ] ]);
+        var motorSide = new Blockly.FieldDropdown([[Blockly.Msg.MOTOR_RIGHT, 'RIGHT'], [Blockly.Msg.MOTOR_LEFT, 'LEFT']]);
         this.appendDummyInput().appendField(Blockly.Msg.GEARED_MOTOR);
         this.appendDummyInput().appendField(Blockly.Msg.MOTOR_SIDE).appendField(motorSide, 'MOTOR_DRIVE').setAlign(Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Actor');
@@ -707,31 +707,31 @@ Blockly.Blocks['robBrick_motor_geared'] = {
 Blockly.Blocks['robBrick_led_matrix'] = {
     /**
      * Represent an led matrix.
-     * 
+     *
      * @constructs robBrick_led_matrix
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
-        this.appendDummyInput().appendField(Blockly.Msg.LED_MATRIX || "LED_MATRIX");
+        this.appendDummyInput().appendField(Blockly.Msg.LED_MATRIX || 'LED_MATRIX');
         this.setOutput(true, 'Actor');
-        this.setTooltip(Blockly.Msg.LED_MATRIX_TOOLTIP || "LED_MATRIX_TOOLTIP");
+        this.setTooltip(Blockly.Msg.LED_MATRIX_TOOLTIP || 'LED_MATRIX_TOOLTIP');
     }
 };
 
 Blockly.Blocks['robBrick_motor_middle'] = {
     /**
      * Represents a middle motor.
-     * 
+     *
      * @constructs robActions_motor_middle
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
-        var motorRegulation = new Blockly.FieldDropdown([ [ Blockly.Msg.YES, 'TRUE' ], [ Blockly.Msg.NO, 'FALSE' ] ]);
-        var motorReverse = new Blockly.FieldDropdown([ [ Blockly.Msg.MOTOR_FOREWARD, 'OFF' ], [ Blockly.Msg.MOTOR_BACKWARD, 'ON' ] ]);
+        var motorRegulation = new Blockly.FieldDropdown([[Blockly.Msg.YES, 'TRUE'], [Blockly.Msg.NO, 'FALSE']]);
+        var motorReverse = new Blockly.FieldDropdown([[Blockly.Msg.MOTOR_FOREWARD, 'OFF'], [Blockly.Msg.MOTOR_BACKWARD, 'ON']]);
         if (this.workspace.device === 'botnroll') {
             this.appendDummyInput().appendField(Blockly.Msg.MOTOR);
         } else {
@@ -747,12 +747,12 @@ Blockly.Blocks['robBrick_motor_middle'] = {
 Blockly.Blocks['robBrick_motor_ardu'] = {
     /**
      * Represents a middle motor.
-     * 
+     *
      * @constructs robActions_motor_middle
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.appendDummyInput().appendField(Blockly.Msg.MOTOR);
         this.setOutput(true, 'Actor');
@@ -763,14 +763,14 @@ Blockly.Blocks['robBrick_motor_ardu'] = {
 Blockly.Blocks['robBrick_actor'] = {
     /**
      * Represent any actor.
-     * 
+     *
      * @constructs robActions_motor_on
      * @this.Blockly.Block
      * @returns immediately
      * @memberof Block
      */
 
-    init : function() {
+    init: function() {
         this.setColour(Blockly.CAT_ACTION_RGB);
         this.appendDummyInput('ACTOR').appendField(Blockly.Msg.MOTOR_OTHER);
         this.setOutput(true, 'Actor');
@@ -779,23 +779,23 @@ Blockly.Blocks['robBrick_actor'] = {
 };
 
 Blockly.Blocks['robConf_mbuild_port'] = {
-    init: function () {
+    init: function() {
         this.setColour(Blockly.CAT_SENSOR_RGB);
         this.title = 'MBUILD';
-        var nameField = new Blockly.FieldTextInput(Blockly.RobConfig.findLegalName("_M", this),validateName); 
+        var nameField = new Blockly.FieldTextInput(Blockly.RobConfig.findLegalName('_M', this), validateName);
         nameField.setVisible(false);
-        this.appendDummyInput().appendField("mBuild "+ Blockly.Msg.BRICK_PORT, 'MBuild').appendField(nameField, 'NAME');
+        this.appendDummyInput().appendField('mBuild ' + Blockly.Msg.BRICK_PORT, 'MBuild').appendField(nameField, 'NAME');
         this.appendStatementInput('MBUILDSENSOR');
         this.setDeletable(false);
         this.setTooltip(Blockly.Msg.MBUILD_PORT_TOOLTIP);
         this.confBlock = 'mbuild_port';
     },
-    getConfigDecl: function () {
+    getConfigDecl: function() {
         return getConfigDecl(this);
     }
-}
+};
 Blockly.Blocks['robBrick_mbuild_ultrasonic2'] = {
-    init: function () {
+    init: function() {
         this.confBlock = 'ultrasonic';
         this.title = 'ULTRASONIC';
         this.setColour(Blockly.CAT_SENSOR_RGB);
@@ -803,21 +803,21 @@ Blockly.Blocks['robBrick_mbuild_ultrasonic2'] = {
         var name = Blockly.RobConfig.findLegalName(Blockly.Msg.SENSOR_ULTRASONIC.charAt(0).toUpperCase(), this);
         this.nameOld = name;
         var nameField = new Blockly.FieldTextInput(name, validateName);
-        this.appendDummyInput().appendField(Blockly.Msg.SENSOR_ULTRASONIC + " 2", 'SENSORTITLE').appendField(nameField, 'NAME');
+        this.appendDummyInput().appendField(Blockly.Msg.SENSOR_ULTRASONIC + ' 2', 'SENSORTITLE').appendField(nameField, 'NAME');
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
     },
-    getConfigDecl: function () {
+    getConfigDecl: function() {
         return getConfigDecl(this);
     },
-    onDispose: function () {
+    onDispose: function() {
         Blockly.RobConfig.disposeConfig(this);
     }
-}
+};
 
 Blockly.Blocks['robBrick_mbuild_quadrgb'] = {
-    init: function () {
+    init: function() {
         this.confBlock = 'quadrgb';
         this.title = 'QUADRGB';
         this.setColour(Blockly.CAT_SENSOR_RGB);
@@ -837,7 +837,24 @@ Blockly.Blocks['robBrick_mbuild_quadrgb'] = {
     onDispose: function() {
         Blockly.RobConfig.disposeConfig(this);
     }
-}
+};
+
+Blockly.Blocks['robConf_callibot2'] = {
+    init: function() {
+        this.setColour(Blockly.CAT_ADD_ON_RGB);
+        this.title = 'CALLIBOT';
+        var name = Blockly.RobConfig.findLegalName(Blockly.Msg['ACTION_' + this.title].charAt(0).toUpperCase(), this);
+        this.nameOld = name;
+        var nameField = new Blockly.FieldTextInput(name, validateName);
+        this.appendDummyInput().appendField(Blockly.Msg.ACTION_CALLIBOT).appendField(nameField, 'NAME');
+        this.appendStatementInput('BUS');
+        this.setTooltip(Blockly.Msg.CALLIBOT_TOOLTIP);
+        this.confBlock = 'callibot2';
+    },
+    getConfigDecl: function() {
+        return getConfigDecl(this);
+    }
+};
 
 Blockly.Blocks['robConf_i2c_bus'] = {
     init: function() {
@@ -890,10 +907,11 @@ function validateName(name) {
     Blockly.RobConfig.renameConfig(this.sourceBlock_, nameOld, name, Blockly.Workspace.getByContainer("blocklyDiv"));
     block.nameOld = name;
     return name;
-}
+};
+
 function getConfigDecl(block) {
     return [{
         'type': block.title.toLowerCase(),
-        'name': block.getFieldValue('NAME'),
+        'name': block.getFieldValue('NAME')
     }];
 }

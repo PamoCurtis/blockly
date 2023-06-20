@@ -20,6 +20,9 @@ goog.require('Blockly.Workspace');
  *            workspace Workspace rename variables in.
  */
 Blockly.RobConfig.renameConfig = function(thatBlock, oldName, newName, workspace) {
+    if (thatBlock.isInFlyout){
+        return;
+    }
     Blockly.Events.setGroup(true);
     var blocks = workspace.getAllBlocks();
     for (var x = 0; x < blocks.length; x++) {

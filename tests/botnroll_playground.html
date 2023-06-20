@@ -45,6 +45,7 @@
 <script src='../blocks/variables.js'></script>
 <script src='../blocks/procedures.js'></script>
 <script src='../blocks/robActions.js'></script>
+    <script src='../blocks/actions.js'></script>
 <script src='../blocks/robBrick.js'></script>
 <script src='../blocks/robColour.js'></script>
 <script src='../blocks/robCommunication.js'></script>
@@ -67,7 +68,7 @@
     // Depending on the URL argument, render as LTR or RTL.
     var rtl = (document.location.search == '?rtl');
     var workspace = null;
-    var device = 'ardu';
+    var device = 'botnroll';
 
     function start() {
         var toolbox = document.getElementById('toolbox');
@@ -102,7 +103,7 @@
                 variableDeclaration: true,
                 robControls: true
             });
-        workspace.setDevice(device);
+        workspace.setDevice({ group: device, robot: device });
         // Restore previously displayed text.
         if (sessionStorage) {
             var text = sessionStorage.getItem('textarea');
@@ -203,14 +204,6 @@
         console.time('Spaghetti domToWorkspace');
         Blockly.Xml.domToWorkspace(dom, workspace);
         console.timeEnd('Spaghetti domToWorkspace');
-    }
-
-    function toggleDevice() {
-        if (device === 'ev3')
-            device = 'ardu';
-        else
-            device = 'ev3';
-        workspace.setDevice(device);
     }
 
     var spaghettiXml = [
@@ -409,8 +402,8 @@
                 <block type='mbedActions_play_note'></block>
             </category>
             <category name='TOOLBOX_LIGHT' svg='true'>
-                <block type='robActions_brickLight_on'>
-                    <field name='SWITCH_BLINK'>ON</field>
+                <block type='actions_led_botnroll'>
+                    <field name='MODE'>ON</field>
                 </block>
             </category>
         </category>
@@ -594,7 +587,6 @@
         Stress test: &nbsp;
         <input type='button' value='Airstrike!' onclick='airstrike(100)'>
         <input type='button' value='Spaghetti!' onclick='spaghetti(8)'>
-        <input type='button' value='Toggle device!' onclick='toggleDevice()'>
     </p>
     <p>
         Log events: &nbsp;

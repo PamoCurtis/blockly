@@ -45,6 +45,7 @@
     <script src='../blocks/variables.js'></script>
     <script src='../blocks/procedures.js'></script>
     <script src='../blocks/robActions.js'></script>
+    <script src='../blocks/actions.js'></script>
     <script src='../blocks/robBrick.js'></script>
     <script src='../blocks/robColour.js'></script>
     <script src='../blocks/robCommunication.js'></script>
@@ -249,16 +250,15 @@
     <category
         name='TOOLBOX_ACTION' svg='true'>
         <block
-            type='makeblockActions_leds_on'>
-            <value name='COLOR'>
+            type='actions_rgbLed_on_nibo'>
+            <value name='COLOUR'>
                 <block type='robColour_picker'>
                     <field name='COLOUR'>#FF0000</field>
                 </block>
             </value>
         </block>
-        <block type='makeblockActions_leds_off'></block>
-        <block
-            type='bob3Actions_set_led'></block>
+        <block type='actions_rgbLed_off_nibo'></block>
+        <block type='actions_led_nibo'></block>
         <block type='bob3Actions_remember'></block>
         <block type='bob3Actions_recall'></block>
     </category>

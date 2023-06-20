@@ -93,16 +93,12 @@
 
         function start() {
             var defaultProgramXML = "<block_set xmlns='http://www.w3.org/1999/xhtml'><instance x='100' y='50'><block type='robControls_start'><field name='DEBUG'>FALSE</field></block></instance></block_set>";
-            var defaultConfXML = "<block_set xmlns=\"http://de.fhg.iais.roberta.blockly\" robottype=\"festobionicflower\" xmlversion=\"3.1\" description=\"\" tags=\"\">\n" +
-                "    <instance x=\"138\" y=\"80\">\n" +
-                "        <block type=\"robConf_rgbled\" id=\"%=kg52SHeud7*/CEei@q\" intask=\"true\" deletable=\"false\">\n" +
-                "\t\t\t<field name=\"NAME\">R</field>\n" +
-                "\t\t</block>\n" +
-                "\t</instance>\n" +
-                "\t<instance x=\"138\" y=\"120\">\n" +
-                "\t\t<block type=\"robConf_stepmotor\" id=\"h9!lF~R^P?Y!c|wi(YD@\" intask=\"true\" deletable=\"false\">\n" +
-                "\t\t\t<field name=\"NAME\">S</field>\n" +
-                "\t\t</block>\n" +
+            var defaultConfXML = "<block_set xmlns=\"http://de.fhg.iais.roberta.blockly\" robottype=\"festobionic\" xmlversion=\"3.1\" description=\"\" tags=\"\">\n" +
+                "    <instance x=\"138\" y=\"88\">\n" +
+                "        <block type=\"robConf_led\" id=\"1\" intask=\"true\">\n" +
+                "            <field name=\"NAME\">L</field>\n" +
+                "            <field name=\"INPUT\">LED_BUILTIN</field>\n" +
+                "        </block>\n" +
                 "    </instance>\n" +
                 "</block_set>";
             var toolbox = {};
@@ -164,8 +160,8 @@
             options.toolboxPosition = position;
             workspace[suffix] = Blockly.inject(suffix, options);
             workspace[suffix].setDevice({
-                group: 'festobionicflower',
-                robot: 'festobionicflower'
+                group: 'festobionic',
+                robot: 'festobionic'
             });
 
         }
@@ -241,27 +237,18 @@
                 </block>
             </value>
         </block>
-        <block type="actions_rgbLed_on">
-            <value name="COLOUR">
-                <block type="robColour_picker">
-                    <field name="COLOUR">#cc0000</field>
+        <block type="robActions_motor_on_for_ardu">
+            <value name="POWER">
+                <block type="math_number" id="Dy#ytr1sQ2WFyWrdDQ_!" intask="true">
+                    <field name="NUM">90</field>
                 </block>
             </value>
         </block>
-        <block type="actions_rgbLed_off"></block>
-        <block type="festobionicActions_stepmotor">
-            <value name="VALUE">
-                <block type="math_number" intask="true">
-                    <field name="NUM">0</field>
-                </block>
-            </value>
-        </block>
+        <block type="actions_led"></block>
     </category>
     <category name="TOOLBOX_SENSOR" svg="true">
-        <block type="robSensors_touch_getSample"></block>
-        <block type="robSensors_light_getSample"></block>
         <block type="robSensors_timer_getSample"/>
-        <block type="robSensors_timer_reset"></block>
+        <block type="robSensors_timer_reset"/>
     </category>
     <category name="TOOLBOX_CONTROL" svg="true">
         <category name="TOOLBOX_DECISION" svg="true">
@@ -412,57 +399,15 @@
         <block type="robLists_setIndex"/>
         <block type="robLists_getSublist"/>
     </category>
-    <category name="TOOLBOX_COLOUR" svg="true">
-        <block type="robColour_picker">
-            <field name="COLOUR">#999999</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#cc0000</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#ff6600</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#ffcc33</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#33cc00</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#00cccc</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#3366ff</field>
-        </block>
-        <block type="robColour_picker">
-            <field name="COLOUR">#cc33cc</field>
-        </block>
-        <block type="naoColour_rgb">
-            <value name="RED">
-                <block type="math_number" intask="true">
-                    <field name="NUM">120</field>
-                </block>
-            </value>
-            <value name="GREEN">
-                <block type="math_number" intask="true">
-                    <field name="NUM">120</field>
-                </block>
-            </value>
-            <value name="BLUE">
-                <block type="math_number" intask="true">
-                    <field name="NUM">120</field>
-                </block>
-            </value>
-        </block>
-    </category>
     <category name="TOOLBOX_VARIABLE" custom="VARIABLE" svg="true"/>
     <category name="TOOLBOX_PROCEDURE" custom="PROCEDURE" svg="true"/>
 </toolbox_set>
 
+
 <toolbox_set id="toolbox-Configuration" style="display: none">
-    <category name="TOOLBOX_SENSOR" svg="true">
-        <block type="robConf_touch" />
-        <block type="robConf_light" />
+    <category name="TOOLBOX_ACTION" svg="true">
+        <block type="robConf_servo" />
+        <block type="robConf_led" />
     </category>
 </toolbox_set>
 </body>

@@ -145,33 +145,6 @@ Blockly.Blocks['robActions_play_recording'] = {
     }
 };
 
-Blockly.Blocks['robActions_led_on_new_config'] = {
-    /**
-     * Turns led/s on.
-     *
-     * @constructs robActions_led_on_new_config
-     * @this.Blockly.Block
-     * @returns immediately
-     * @memberof Block
-     */
-    init: function() {
-        this.setColour(Blockly.CAT_ACTION_RGB);
-        this.action = 'LED';
-        var slots = new Blockly.FieldDropdown([['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], [Blockly.Msg.NAO_LED_ALL, 'ALL']]);
-        var ports = getConfigPorts('rgbled');
-        this.dependConfig = {
-            'type': 'rgbled',
-            'dropDown': ports
-        };
-        this.appendValueInput('COLOR').appendField(Blockly.Msg.RGBLED_ON).appendField(ports, 'ACTORPORT').appendField(slots, 'LED').appendField(Blockly.Msg.BRICKLIGHT_COLOR).setCheck('Colour');
-        hidePortIfOnlyInbuilt(this);
-
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.LED_ON_TOOLTIP);
-    }
-};
-
 Blockly.Blocks['robActions_motorOmni_curve'] = {
     init: function () {
         this.action = 'OMNIDRIVE';

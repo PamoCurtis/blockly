@@ -46,6 +46,7 @@
 <script src="../blocks/variables.js"></script>
 <script src="../blocks/procedures.js"></script>
 <script src="../blocks/naoActions.js"></script>
+    <script src="../blocks/actions.js"></script>
 <script src="../blocks/naoBrick.js"></script>
 <script src="../blocks/naoColour.js"></script>
 <script src="../blocks/robCommunication.js"></script>
@@ -301,22 +302,25 @@ h1 {
             </block>
          </value>
       </block>
-      <block type="naoActions_rgbLeds">
-         <value name="COLOR">
-            <block type="naoColour_picker">
-               <field name="COLOUR">#ff0000</field>
-            </block>
-         </value>
-      </block>
-      <block type="naoActions_setIntensity">
-         <value name="INTENSITY">
-            <block type="math_number">
-               <field name="NUM">50</field>
-            </block>
-         </value>
-      </block>
-      <block type="naoActions_ledOff"></block>
-      <block type="naoActions_randomEyes">
+       <block type="actions_rgbLed_on_nao">
+           <value name="COLOUR">
+               <block type="robColour_picker">
+                   <field name="COLOUR">#ff0000</field>
+               </block>
+           </value>
+       </block>
+       <block type="actions_rgbLed_off_nao"></block>
+       <block type="actions_led_on_nao">
+           <value name="INTENSITY">
+               <block type="math_number">
+                   <field name="NUM">50</field>
+               </block>
+           </value>
+       </block>
+       <block type="actions_led_off_nao"></block>
+
+
+       <block type="naoActions_randomEyes">
          <value name="DURATION">
             <block type="math_number">
                <field name="NUM">2000</field>
@@ -589,22 +593,6 @@ h1 {
             </block>
         </category>
         <category name="TOOLBOX_LIGHT" svg="true">
-            <block type="naoActions_rgbLeds">
-                <value name="COLOR">
-                    <block type="naoColour_picker">
-                        <field name="COLOUR">#ff0000</field>
-                    </block>
-                </value>
-            </block>
-            <block type="naoActions_setIntensity">
-                <value name="INTENSITY">
-                    <block type="math_number">
-                        <field name="NUM">50</field>
-                    </block>
-                </value>
-            </block>
-            <block type="naoActions_ledOff"></block>
-            <block type="naoActions_ledReset"></block>
             <block type="naoActions_randomEyes">
                 <value name="DURATION">
                     <block type="math_number">

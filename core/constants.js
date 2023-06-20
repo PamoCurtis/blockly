@@ -123,6 +123,8 @@ Blockly.CAT_COMMUNICATION_RGB = '#FF69B4';
  * The rgb value for block colours in communication category.
  */
 Blockly.CAT_IMAGE_RGB = '#DF01D7';
+Blockly.CAT_ADD_ON_RGB = '#666666';
+
 
 /**
  * Opacity used to calculate flyout background color.

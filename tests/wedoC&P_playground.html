@@ -50,6 +50,7 @@
 <script src="../blocks/procedures.js"></script>
 <script src="../blocks/math.js"></script>
 <script src="../blocks/robActions.js"></script>
+    <script src="../blocks/actions.js"></script>
 <script src="../blocks/robColour.js"></script>
 <script src="../blocks/robControls.js"></script>
 <script src="../blocks/robSensors.js"></script>
@@ -246,14 +247,14 @@ h1 {
         </block>
         <block type="robActions_display_clear"></block>
         <block type="mbedActions_play_note"></block>
-        <block type="robActions_led_on">
-            <value name="COLOR">
+        <block type="actions_rgbLed_on">
+            <value name="COLOUR">
                 <block type="robColour_picker">
                     <field name="COLOUR">#ff0000</field>
                 </block>
             </value>
         </block>
-        <block type="robActions_led_off"></block>
+        <block type="actions_rgbLed_off"></block>
     </category>
     <category name="TOOLBOX_SENSOR" svg="true">
         <block type='robSensors_key_getSample'></block>
@@ -396,15 +397,7 @@ h1 {
             <block type="mbedActions_play_note"></block>
         </category>
         <category name="TOOLBOX_LIGHT" svg="true">
-            <block type="robActions_led_on">
-                <value name="COLOR">
-                    <block type="robColour_picker">
-                        <field name="COLOUR">#ff0000</field>
-                    </block>
-                </value>
-            </block>
-            <block type="robActions_led_off"></block>
-        </category>
+         </category>
     </category>
     <category name="TOOLBOX_SENSOR" svg="true">
         <block type='robSensors_key_getSample'></block>
@@ -561,7 +554,7 @@ h1 {
     <category name="TOOLBOX_ACTION" svg="true">
         <block type=robConf_motor></block>
         <block type=robConf_buzzer></block>
-        <block type=robConf_led></block>
+        <block type=robConf_rgbled></block>
     </category>
     <category name="TOOLBOX_SENSOR" svg="true">
         <block type="robConf_infrared"></block>

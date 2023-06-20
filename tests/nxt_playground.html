@@ -47,6 +47,7 @@
 <script src="../blocks/variables.js"></script>
 <script src="../blocks/procedures.js"></script>
 <script src="../blocks/robActions.js"></script>
+    <script src="../blocks/actions.js"></script>
 <script src="../blocks/robBrick.js"></script>
 <script src="../blocks/robColour.js"></script>
 <script src="../blocks/robCommunication.js"></script>
@@ -390,8 +391,11 @@ h1 {
             <block type="robActions_play_getVolume"></block>
         </category>
         <category name="TOOLBOX_LIGHT" svg="true">
-            <block type="robActions_sensorLight_on">
-                <field name="SENSORPORT">3</field>
+            <block type="actions_rgbled_on_nxt">
+                <field name="ACTORPORT">3</field>
+            </block>
+            <block type="actions_rgbled_off_nxt">
+                <field name="ACTORPORT">3</field>
             </block>
         </category>
     </category>

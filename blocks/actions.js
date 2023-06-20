@@ -610,7 +610,7 @@ Blockly.Blocks['colour_picker_spike'] = {
     }
 };
 
-Blockly.Blocks['actions_brickLed_on'] = {
+Blockly.Blocks['actions_rgbLed_hidden_on'] = {
     init: function() {
         var ports = getConfigPorts('rgbled');
         this.hide = {};
@@ -625,7 +625,7 @@ Blockly.Blocks['actions_brickLed_on'] = {
             colour: Blockly.CAT_ACTION_RGB,
             previousStatement: true,
             nextStatement: true,
-            tooltip: Blockly.Msg.LED_ON_TOOLTIP
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
         });
         this.dependConfig = {
             'type': 'rgbled',
@@ -634,7 +634,7 @@ Blockly.Blocks['actions_brickLed_on'] = {
     }
 };
 
-Blockly.Blocks['actions_brickLed_off'] = {
+Blockly.Blocks['actions_rgbLed_hidden_off'] = {
     init: function() {
         var ports = getConfigPorts('rgbled');
         this.hide = {};
@@ -646,12 +646,612 @@ Blockly.Blocks['actions_brickLed_off'] = {
             colour: Blockly.CAT_ACTION_RGB,
             previousStatement: true,
             nextStatement: true,
-            tooltip: Blockly.Msg.LED_OFF_TOOLTIP
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
         });
         this.dependConfig = {
             'type': 'rgbled',
             'dropDown': 'hide'
         };
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_on'] = {
+    init: function() {
+        var ports = getConfigPorts('rgbled');
+        var that = this;
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: ports.menuGenerator_
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: function() {
+                return Blockly.Msg['RGB_LED_ON_TOOLTIP_' + that.workspace.device.toUpperCase()] || Blockly.Msg.RGB_LED_ON_TOOLTIP;
+            }
+        });
+        this.dependConfig = {
+            'type': 'rgbled',
+            'dropDown': this.getField('ACTORPORT')
+        };
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_off'] = {
+    init: function() {
+        var ports = getConfigPorts('rgbled');
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: ports.menuGenerator_
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+        this.dependConfig = {
+            'type': 'rgbled',
+            'dropDown': this.getField('ACTORPORT')
+        };
+    }
+};
+
+Blockly.Blocks['actions_led'] = {
+    init: function() {
+        var ports = getConfigPorts('led');
+        this.jsonInit({
+            message0: Blockly.Msg.SET_LED + ' %1 %2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: ports.menuGenerator_
+            }, {
+                type: 'field_dropdown',
+                name: 'MODE',
+                options: [[Blockly.Msg.ON, 'ON'],
+                    [Blockly.Msg.OFF, 'OFF']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.LED_ON_TOOLTIP
+        });
+        this.dependConfig = {
+            'type': 'led',
+            'dropDown': this.getField('ACTORPORT')
+        };
+    }
+};
+
+Blockly.Blocks['actions_led_botnroll'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.SET_LED + ' %1',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'MODE',
+                options: [[Blockly.Msg.ON, 'ON'],
+                    [Blockly.Msg.OFF, 'OFF']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_on_thymio'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.SENSOR_TOP, 'TOP'],
+                    [Blockly.Msg.BOTTOM_LEFT, 'BOTTOM.LEFT'],
+                    [Blockly.Msg.BOTTOM_RIGHT, 'BOTTOM.RIGHT']]
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_off_thymio'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.SENSOR_TOP, 'TOP'],
+                    [Blockly.Msg.BOTTOM_LEFT, 'BOTTOM.LEFT'],
+                    [Blockly.Msg.BOTTOM_RIGHT, 'BOTTOM.RIGHT']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_bricklight_on_ev3'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.TURN_BRICKLIGHT + ' ' + Blockly.Msg.BRICKLIGHT_COLOR + ' %1 ',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'COLOUR',
+                options: [[Blockly.Msg.BRICKLIGHT_GREEN, 'GREEN'],
+                    [Blockly.Msg.BRICKLIGHT_ORANGE, 'ORANGE'],
+                    [Blockly.Msg.BRICKLIGHT_RED, 'RED']]
+            }],
+            message1: '%1',
+            args1: [{
+                type: 'field_dropdown',
+                name: 'MODE',
+                options: [[Blockly.Msg.ON, 'ON'],
+                    [Blockly.Msg.BRICKLIGHT_FLASH, 'FLASH'],
+                    [Blockly.Msg.BRICKLIGHT_DOUBLE_FLASH, 'DOUBLE_FLASH']]
+            }],
+            lastDummyAlign1: 'RIGHT',
+            previousStatement: true,
+            nextStatement: true,
+            colour: Blockly.CAT_ACTION_RGB,
+            tooltip: Blockly.Msg.BRICKLIGHT_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_bricklight_off_ev3'] = {
+    init: function() {
+        var that = this;
+        this.jsonInit({
+            message0: Blockly.Msg.TURN_BRICKLIGHT + ' %1 ',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'MODE',
+                options: [[Blockly.Msg.OFF, 'OFF'],
+                    [Blockly.Msg.RESET, 'RESET']]
+            }],
+            previousStatement: true,
+            nextStatement: true,
+            colour: Blockly.CAT_ACTION_RGB,
+            tooltip: function() {
+                return that.getFieldValue('MODE') === 'OFF' ? Blockly.Msg.BRICKLIGHT_OFF_TOOLTIP : Blockly.Msg.BRICKLIGHT_RESET_TOOLTIP;
+            }
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbled_on_nxt'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    ['Port 1', '1'],
+                    ['Port 2', '2'],
+                    ['Port 3', '3'],
+                    ['Port 4', '4']
+                ]
+            }, {
+                type: 'field_dropdown',
+                name: 'COLOUR',
+                options: [[Blockly.Msg.BRICKLIGHT_RED, 'RED'],
+                    [Blockly.Msg.BRICKLIGHT_GREEN, 'GREEN'],
+                    [Blockly.Msg.BRICKLIGHT_BLUE, 'BLUE']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.BRICKLIGHT_ON_TOOLTIP
+        });
+    }
+};
+Blockly.Blocks['actions_rgbled_off_nxt'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    ['Port 1', '1'],
+                    ['Port 2', '2'],
+                    ['Port 3', '3'],
+                    ['Port 4', '4']
+                ]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.BRICKLIGHT_OFF_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_on_nao'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.NAO_LED_EYES, 'EYES'], [Blockly.Msg.MOTOR_LEFT + ' ' + Blockly.Msg.NAO_LED_EYE, 'LEFTEYE'],
+                    [Blockly.Msg.MOTOR_RIGHT + ' ' + Blockly.Msg.NAO_LED_EYE, 'RIGHTEYE'],
+                    [Blockly.Msg.MOTOR_LEFT + ' ' + Blockly.Msg.NAO_LED_FOOT, 'LEFTFOOT'],
+                    [Blockly.Msg.MOTOR_RIGHT + ' ' + Blockly.Msg.NAO_LED_FOOT, 'RIGHTFOOT'], [Blockly.Msg.NAO_LED_ALL, 'ALL']]
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_off_nao'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.TURN_RGBLED + ' %1 %2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.NAO_LED_EYES, 'EYES'], [Blockly.Msg.MOTOR_LEFT + ' ' + Blockly.Msg.NAO_LED_EYE, 'LEFTEYE'],
+                    [Blockly.Msg.MOTOR_RIGHT + ' ' + Blockly.Msg.NAO_LED_EYE, 'RIGHTEYE'],
+                    [Blockly.Msg.MOTOR_LEFT + ' ' + Blockly.Msg.NAO_LED_FOOT, 'LEFTFOOT'],
+                    [Blockly.Msg.MOTOR_RIGHT + ' ' + Blockly.Msg.NAO_LED_FOOT, 'RIGHTFOOT'], [Blockly.Msg.NAO_LED_ALL, 'ALL']]
+            },
+                {
+                    type: 'field_dropdown',
+                    name: 'MODE',
+                    options: [[Blockly.Msg.OFF, 'OFF'],
+                        [Blockly.Msg.RESET, 'RESET']]
+                }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_led_on_nao'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.LED_ON + ' %1 ' + Blockly.Msg.NAO_INTENSITY + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.NAO_LED_HEAD, 'HEAD'], [Blockly.Msg.NAO_LED_EARS, 'EARS'],
+                    [Blockly.Msg.MOTOR_LEFT + ' ' + Blockly.Msg.NAO_LED_EAR, 'LEFTEAR'], [Blockly.Msg.MOTOR_RIGHT + ' ' + Blockly.Msg.NAO_LED_EAR, 'RIGHTEAR'],
+                    [Blockly.Msg.NAO_LED_CHEST, 'CHEST']]
+            }, {
+                type: 'input_value', name: 'INTENSITY', check: ['Number']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.LED_SET_INTENSITY_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_led_off_nao'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.SET_LED + ' %1 %2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.NAO_LED_HEAD, 'HEAD'], [Blockly.Msg.NAO_LED_EARS, 'EARS'],
+                    [Blockly.Msg.MOTOR_LEFT + ' ' + Blockly.Msg.NAO_LED_EAR, 'LEFTEAR'], [Blockly.Msg.MOTOR_RIGHT + ' ' + Blockly.Msg.NAO_LED_EAR, 'RIGHTEAR'],
+                    [Blockly.Msg.NAO_LED_CHEST, 'CHEST'], [Blockly.Msg.NAO_LED_ALL, 'ALL']]
+            },
+                {
+                    type: 'field_dropdown',
+                    name: 'MODE',
+                    options: [[Blockly.Msg.OFF, 'OFF'],
+                        [Blockly.Msg.RESET, 'RESET']]
+                }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.LED_OFF_TOOLTIP_NAO
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_on_nibo'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    [Blockly.Msg.NAO_LED_EYE + ' ' + Blockly.Msg.LEFT, 'EYE_2'],
+                    [Blockly.Msg.NAO_LED_EYE + ' ' + Blockly.Msg.RIGHT, 'EYE_1']
+                ]
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_off_nibo'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1 ',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    [Blockly.Msg.NAO_LED_EYE + ' ' + Blockly.Msg.LEFT, 'EYE_2'],
+                    [Blockly.Msg.NAO_LED_EYE + ' ' + Blockly.Msg.RIGHT, 'EYE_1']
+                ]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_led_nibo'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.SET_LED + ' %1 %2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    [Blockly.Msg.NAO_PART_BODY + ' ' + Blockly.Msg.LEFT, 'LED_4'],
+                    [Blockly.Msg.NAO_PART_BODY + ' ' + Blockly.Msg.RIGHT, 'LED_3']
+                ]
+            }, {
+                type: 'field_dropdown',
+                name: 'MODE',
+                options: [[Blockly.Msg.ON, 'ON'],
+                    [Blockly.Msg.OFF, 'OFF']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.LED_TOOLTIP_NIBO
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_on_mbot'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.LEFT, '2'],
+                    [Blockly.Msg.RIGHT, '1']]
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_off_mbot'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [[Blockly.Msg.LEFT, '2'],
+                    [Blockly.Msg.RIGHT, '1']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_hidden_on_calliope'] = {
+    init: function() {
+        var ports = getConfigPorts('rgbledh');
+        this.hide = {};
+        this.hide.name = 'ACTORPORT';
+        this.hide.port = true;
+        this.hide.value = ports.getValue();
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' ' + Blockly.Msg.BRICKLIGHT_COLOR + '%1',
+            args0: [{
+                type: 'input_value', name: 'COLOUR', check: ['Colour', 'ColourLed']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+        this.dependConfig = {
+            'type': 'rgbledh',
+            'dropDown': 'hide'
+        };
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_hidden_off_calliope'] = {
+    init: function() {
+        var ports = getConfigPorts('rgbledh');
+        this.hide = {};
+        this.hide.name = 'ACTORPORT';
+        this.hide.port = true;
+        this.hide.value = ports.getValue();
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF,
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+        this.dependConfig = {
+            'type': 'rgbledh',
+            'dropDown': 'hide'
+        };
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_hidden_on_mbot2'] = {
+    init: function() {
+        var ports = getConfigPorts('rgbled');
+        this.hide = {};
+        this.hide.name = 'ACTORPORT';
+        this.hide.port = true;
+        this.hide.value = ports.getValue();
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'SLOT',
+                options: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], [Blockly.Msg.NAO_LED_ALL, 'ALL']]
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour', 'ColourLed']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+        this.dependConfig = {
+            'type': 'rgbled',
+            'dropDown': 'hide'
+        };
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_hidden_off_mbot2'] = {
+    init: function() {
+        var ports = getConfigPorts('rgbled');
+        this.hide = {};
+        this.hide.name = 'ACTORPORT';
+        this.hide.port = true;
+        this.hide.value = ports.getValue();
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'SLOT',
+                options: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], [Blockly.Msg.NAO_LED_ALL, 'ALL']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
+        this.dependConfig = {
+            'type': 'rgbled',
+            'dropDown': 'hide'
+        };
+    }
+};
+
+Blockly.Blocks['actions_led_edison'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.SET_LED + ' %1 %2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+
+                    [Blockly.Msg.LEFT, 'LLED'],
+                    [Blockly.Msg.RIGHT, 'RLED']
+                ]
+            }, {
+                type: 'field_dropdown',
+                name: 'MODE',
+                options: [[Blockly.Msg.ON, 'ON'],
+                    [Blockly.Msg.OFF, 'OFF']]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_on_thymio'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_ON + ' %1 ' + Blockly.Msg.BRICKLIGHT_COLOR + '%2',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    [Blockly.Msg.SENSOR_TOP, 'TOP'],
+                    [Blockly.Msg.BOTTOM_LEFT, 'BOTTOM.LEFT'],
+                    [Blockly.Msg.BOTTOM_RIGHT, 'BOTTOM.RIGHT']
+                ]
+            }, {
+                type: 'input_value', name: 'COLOUR', check: ['Colour']
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
+        });
+    }
+};
+
+Blockly.Blocks['actions_rgbLed_off_thymio'] = {
+    init: function() {
+        this.jsonInit({
+            message0: Blockly.Msg.RGBLED_OFF + ' %1 ',
+            args0: [{
+                type: 'field_dropdown',
+                name: 'ACTORPORT',
+                options: [
+                    [Blockly.Msg.SENSOR_TOP, 'TOP'],
+                    [Blockly.Msg.BOTTOM_LEFT, 'BOTTOM.LEFT'],
+                    [Blockly.Msg.BOTTOM_RIGHT, 'BOTTOM.RIGHT']
+                ]
+            }],
+            colour: Blockly.CAT_ACTION_RGB,
+            previousStatement: true,
+            nextStatement: true,
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
+        });
     }
 };
 
@@ -951,7 +1551,7 @@ Blockly.Blocks['actions_rgbLed_on_joycar'] = {
             colour: Blockly.CAT_ACTION_RGB,
             previousStatement: true,
             nextStatement: true,
-            tooltip: Blockly.Msg.LED_ON_TOOLTIP
+            tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
         });
         this.dependConfig = {
             'type': 'rgbled',
@@ -977,7 +1577,7 @@ Blockly.Blocks['actions_rgbLed_off_joycar'] = {
             colour: Blockly.CAT_ACTION_RGB,
             previousStatement: true,
             nextStatement: true,
-            tooltip: Blockly.Msg.LED_OFF_TOOLTIP
+            tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
         });
         this.dependConfig = {
             'type': 'rgbled',

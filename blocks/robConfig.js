@@ -28,7 +28,7 @@ Blockly.Blocks['robConf_generic'] = {
      *
      * @memberof Block
      */
-    init: function(confBlock) {
+    init: function(confBlock, confBlockName) {
         this.setColour(confBlock.sensor ? Blockly.CAT_SENSOR_RGB : Blockly.CAT_ACTION_RGB);
 
         var validateName = function(name) {
@@ -44,11 +44,6 @@ Blockly.Blocks['robConf_generic'] = {
                 return (item.nameOld) ? item.nameOld === name : item.fieldRow[1].getText() === name;
             })[0];
             var nameOld = block.nameOld;
-            if (subComp) {
-                subComp.nameOld = name;
-                nameOld = name;
-            }
-
             // Ensure two identically-named variables don't exist.
             name = Blockly.RobConfig.findLegalName(name, block, nameOld);
             Blockly.RobConfig.renameConfig(this.sourceBlock_, nameOld, name, Blockly.Workspace.getByContainer('blocklyDiv'));
@@ -72,9 +67,6 @@ Blockly.Blocks['robConf_generic'] = {
         this.appendDummyInput().setAlign(Blockly.ALIGN_RIGHT).appendField(Blockly.Msg[type + confBlock.title + '_' + this.workspace.device.toUpperCase()]
             || Blockly.Msg[type + confBlock.title] || type + confBlock.title, 'SENSORTITLE').appendField(nameField, 'NAME');
 
-        if (confBlock.super) {
-            this.super = true;
-        }
         if (confBlock.bricks) {
             var container = Blockly.Workspace.getByContainer('bricklyDiv');
             if (container) {
@@ -160,34 +152,19 @@ Blockly.Blocks['robConf_generic'] = {
                 this.appendDummyInput().setAlign(Blockly.ALIGN_RIGHT).appendField(name).appendField(dropDown, confBlock.fixedPorts[i][1]);
             }
         }
-        if (confBlock.subcomponents) {
-            for (var i = 0; i < confBlock.subcomponents.length; i++) {
-                var name = Blockly.Msg[confBlock.subcomponents[i][0]] || confBlock.subcomponents[i][0];
-                var textField = new Blockly.FieldTextInput(Blockly.RobConfig.findLegalName(name.charAt(0).toUpperCase(), this), validateName);
-                this.appendDummyInput().setAlign(Blockly.ALIGN_RIGHT).appendField(name).appendField(textField, confBlock.subcomponents[i][1]);
-            }
-        }
         if (confBlock.statement) {
             this.setPreviousStatement(true);
             this.setNextStatement(true);
         }
+        this.type = 'robConf_' + confBlockName;
+        this.confBlock = confBlock.title.toLowerCase();
         var that = this;
         this.setTooltip(function() {
             return Blockly.Msg[confBlock.title + '_TOOLTIP_' + that.workspace.device.toUpperCase()] || Blockly.Msg[confBlock.title + '_TOOLTIP']
                 || confBlock.title + '_TOOLTIP';
         });
-        this.type = 'robConf_' + confBlock.title.toLowerCase();
         this.getConfigDecl = function() {
             var configDecl = [];
-            if (confBlock.subcomponents) {
-                for (var i = 0; i < confBlock.subcomponents.length; i++) {
-                    configDecl.push({
-                        // subcomponents may have an additional underscore in the name, to give it a unique name
-                        'type': confBlock.subcomponents[i][1].toLowerCase().split('_')[0],
-                        'name': that.inputList[i + 1].fieldRow[1].getText()
-                    });
-                }
-            }
             configDecl.push({
                 'type': confBlock.title.toLowerCase(),
                 'name': that.getFieldValue('NAME')
