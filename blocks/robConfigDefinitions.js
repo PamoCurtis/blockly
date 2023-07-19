@@ -111,30 +111,27 @@ Blockly.Blocks.robConfigDefinitions['pinsDigital'].calliope = function() {
     return array;
 };
 Blockly.Blocks.robConfigDefinitions['pinsDigital'].microbit = function() {
-    var array = [
-        ['P0', '0'],
-        ['P1', '1'],
-        ['P8', '8'],
-        ['P2', '2'],
-        ['P12', '12'],
-        ['P13', '13'],
-        ['P14', '14'],
-        ['P15', '15'],
-        ['P16', '16'],
-        ['SCL', '19'],
-        ['SDA', '20'],
-        ['EOUT7', 'B7']
-    ];
-    return array;
-};
-Blockly.Blocks.robConfigDefinitions['pinsDigital'].microbitv2 = Blockly.Blocks.robConfigDefinitions['pinsDigital'].microbit;
-Blockly.Blocks.robConfigDefinitions['pinsDigital'].joycar = function() {
     var array = createPins(0, 16);
     array = array.concat(createPins(19, 20));
     return array;
 };
-;
-
+Blockly.Blocks.robConfigDefinitions['pinsDigital'].microbitv2 = Blockly.Blocks.robConfigDefinitions['pinsDigital'].microbit;
+Blockly.Blocks.robConfigDefinitions['pinsDigital'].joycar = function() {
+    var array = [
+        ['P0', 'P0'],
+        ['P1', 'P1'],
+        ['P8', 'P8'],
+        ['P2', 'P2'],
+        ['P12', 'P12'],
+        ['P13', 'P13'],
+        ['P14', 'P14'],
+        ['P15', 'P15'],
+        ['P16', 'P16'],
+        ['SCL', 'P19'],
+        ['SDA', 'P20']
+    ];
+    return array;
+};
 
 Blockly.Blocks.robConfigDefinitions['pinsDigital'].robotino = function() {
     var array = [
@@ -207,7 +204,14 @@ Blockly.Blocks.robConfigDefinitions['pinsAnalog'].microbit = function() {
     return array;
 };
 Blockly.Blocks.robConfigDefinitions['pinsAnalog'].microbitv2 = Blockly.Blocks.robConfigDefinitions['pinsAnalog'].microbit;
-Blockly.Blocks.robConfigDefinitions['pinsAnalog'].joycar = Blockly.Blocks.robConfigDefinitions['pinsAnalog'].microbit;
+Blockly.Blocks.robConfigDefinitions['pinsAnalog'].joycar = function() {
+    var array = [
+        ['P0', 'P0'],
+        ['P1', 'P1'],
+        ['P2', 'P2']
+    ];
+    return array;
+};
 
 Blockly.Blocks.robConfigDefinitions['pinsAnalog'].robotino = function() {
     //var array = createPins(1, 8, 'AI');
@@ -279,7 +283,14 @@ Blockly.Blocks.robConfigDefinitions['pinsAnalogWrite'].microbit = function() {
     return array;
 };
 Blockly.Blocks.robConfigDefinitions['pinsAnalogWrite'].microbitv2 = Blockly.Blocks.robConfigDefinitions['pinsAnalogWrite'].microbit;
-Blockly.Blocks.robConfigDefinitions['pinsAnalogWrite'].joycar = Blockly.Blocks.robConfigDefinitions['pinsAnalogWrite'].microbitv2;
+Blockly.Blocks.robConfigDefinitions['pinsAnalogWrite'].joycar = function() {
+    var array = [
+        ['P0', 'P0'],
+        ['P1', 'P1'],
+        ['P2', 'P2']
+    ];
+    return array;
+};
 
 Blockly.Blocks.robConfigDefinitions['pins_wedo'] = function() {
     return createPins(1, 2);
