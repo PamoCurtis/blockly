@@ -37,7 +37,7 @@ Blockly.RobConfig.renameConfig = function(thatBlock, oldName, newName, workspace
         var subComponentNames = new Set();
         for (var i = 1; i < thatBlock.inputList.length; i++) {
             var subComp = thatBlock.inputList[i].fieldRow[1];
-            if (subComp.name) {
+            if (subComp !== undefined && subComp.name) {
                 // subcomponents may have an additional underscore in the name, to give it a unique name
                 var subCompType = subComp.name.toLowerCase().split('_')[0];
                 var subCompName = subComp.getText();
