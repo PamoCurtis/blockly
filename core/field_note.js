@@ -118,6 +118,7 @@ Blockly.FieldNote.prototype.showEditor_ = function() {
     // Mobile browsers have issues with in-line textareas (focus & keyboards).
     Blockly.FieldNote.superClass_.showEditor_.call(this, noFocus);
     Blockly.FieldTextInput.htmlInput_.setAttribute('disabled', 'true');
+    Blockly.FieldTextInput.htmlInput_.style.visibility='hidden';
     var div = Blockly.WidgetDiv.DIV;
     if (!div.firstChild) {
         // Mobile interface uses window.prompt.
