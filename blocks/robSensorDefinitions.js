@@ -500,7 +500,6 @@ sensors.infrared.botnroll = {
         name: 'PRESENCE', type: 'Boolean'
     }]
 };
-sensors.infrared = {};
 
 sensors.infrared.arduino = {
     title: 'INFRARED', modes: [{
