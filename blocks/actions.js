@@ -1000,6 +1000,10 @@ Blockly.Blocks['actions_rgbLed_on_nibo'] = {
             nextStatement: true,
             tooltip: Blockly.Msg.RGB_LED_ON_TOOLTIP
         });
+        if (this.workspace.device === 'rob3rta') {
+            this.inputList[0].fieldRow[1].text_ = Blockly.Msg.NAO_LED_HEAD;
+            this.inputList[0].fieldRow[2].prefixField= Blockly.Msg.NAO_LED_HEAD;
+        }
     }
 };
 
@@ -1020,6 +1024,10 @@ Blockly.Blocks['actions_rgbLed_off_nibo'] = {
             nextStatement: true,
             tooltip: Blockly.Msg.RGB_LED_OFF_TOOLTIP
         });
+        if (this.workspace.device === 'rob3rta') {
+            this.inputList[0].fieldRow[1].text_ = Blockly.Msg.NAO_LED_HEAD;
+            this.inputList[0].fieldRow[2].prefixField= Blockly.Msg.NAO_LED_HEAD;
+        }
     }
 };
 
